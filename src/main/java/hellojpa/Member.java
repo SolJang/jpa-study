@@ -1,36 +1,47 @@
 package hellojpa;
 
 import javax.persistence.*;
-import java.util.Date;
 
 // JPA가 로딩될때 JPA가 사용되는 애구나 확인하는 어노테이션
 @Entity
-// class명과 table명이 다를 경우 명시해주면 JPA가 적힌 USER라는 테이블로 처리해줌
-//@Table(name = "USER")
 public class Member {
 
-    @Id // @Id 는 PK가 무엇인지 알려주기 위해 명시
+    @Id @GeneratedValue
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "USERNAME")
     private String username;
 
-    private Integer age;
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
-
-    @Lob
-    private String description;
+    @ManyToOne // Team과 어떤 관계인지
+    @JoinColumn(name = "TEAM_ID") // 어떤 컬럼을 매핑해야하는지
+    private Team team;
 
     public Member(){}
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 }

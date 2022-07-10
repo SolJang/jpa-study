@@ -24,16 +24,23 @@ public class JpaMain {
 
         // JPA는 트랜잭션 안에서 항상 이루어져야함
         try {
-//            Member member = new Member(200L, "member200");
-//            em.persist(member);
-//
-//            em.flush();
-//            System.out.println("====================");
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            Member member = em.find(Member.class, 150L);
-//            member.setName("nameChange");
-            // 회원 엔티티를 영속성 컨텍스트에서 분리, 준영속 상태
-            em.detach(member);
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeam(team);
+            em.persist(member);
+
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam);
+
+
+            Team newTeam = em.find(Team.class, 100L);
+            findMember.setTeam(newTeam);
+
 
             // 커밋되는 시점에 영속성컨텍스트에 있는 것들이 쿼리로 날아감
             tx.commit();
