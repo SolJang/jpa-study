@@ -24,34 +24,16 @@ public class JpaMain {
 
         // JPA는 트랜잭션 안에서 항상 이루어져야함
         try {
-            // JPA와는 상관없이 객체를 생성한 상태로 비영속 상태
-//            Member member = new Member();
-//            member.setId(101L);
-//            member.setName("HelloJPA");
-
-            // 영속상태 => em을 통해 관리가 된다. 객체가 저장 이때 DB에 저장되는 것 같지만 DB에 저장되지 않는다.
-            // 1차 캐시 저장
+//            Member member = new Member(200L, "member200");
 //            em.persist(member);
-
-            // 1차 캐시에 저장된 값을 가져온다.
-//            Member findMember = em.find(Member.class, 101L);
-//            System.out.println("findMember.getId() = " + findMember.getId());
-//            System.out.println("findMember.getName() = " + findMember.getName());
-
-            // 회원 엔티티를 영속성 컨텍스트에서 분리, 준영속 상태
-//            em.detach(member);
-            // 객체를 삭제한 상태
-//            em.remove(member);
-
-
-//            Member member1 = new Member(150L, "A");
-//            Member member2 = new Member(160L, "B");
-//            em.persist(member1);
-//            em.persist(member2);
-//            System.out.println("=================");
+//
+//            em.flush();
+//            System.out.println("====================");
 
             Member member = em.find(Member.class, 150L);
-            member.setName("hi_JPA");
+//            member.setName("nameChange");
+            // 회원 엔티티를 영속성 컨텍스트에서 분리, 준영속 상태
+            em.detach(member);
 
             // 커밋되는 시점에 영속성컨텍스트에 있는 것들이 쿼리로 날아감
             tx.commit();

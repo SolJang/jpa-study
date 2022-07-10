@@ -1,8 +1,7 @@
 package hellojpa;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 // JPA가 로딩될때 JPA가 사용되는 애구나 확인하는 어노테이션
 @Entity
@@ -12,31 +11,26 @@ public class Member {
 
     @Id // @Id 는 PK가 무엇인지 알려주기 위해 명시
     private Long id;
-    @Column
-    private String name;
+
+    @Column(name = "name")
+    private String username;
+
+    private Integer age;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+
+    @Lob
+    private String description;
 
     public Member(){}
 
-    public Member(Long id, String name){
-        this.id = id;
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
 
 }
